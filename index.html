@@ -15,7 +15,6 @@
       --c-blue-2:#0066ff;
       --c-blue-3:#003399;
       --radius-outer:30px;
-      --radius-inner:12px;
     }
     *{margin:0;padding:0;box-sizing:border-box}
     body{
@@ -31,7 +30,6 @@
     .crt-container::after{content:"";position:absolute;inset:0;background:rgba(0,255,255,.02);animation:flicker .15s infinite linear alternate}
     @keyframes scanlines{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
     @keyframes flicker{0%,98%{opacity:1}99%{opacity:.98}100%{opacity:.96}}
-    @media (prefers-reduced-motion:reduce){.crt-container::before,.crt-container::after{animation:none}}
 
     .screen{position:relative;width:min(1200px,95%);min-height:calc(100svh - 4vh);margin:2vh auto;padding:clamp(16px,3vw,40px);background:radial-gradient(ellipse at center, rgba(0,30,60,.3) 0%, rgba(0,10,30,.6) 100%);border-radius:var(--radius-outer);border:3px solid rgba(0,100,255,.3);box-shadow:0 0 30px rgba(0,150,255,.4), inset 0 0 50px rgba(0,100,255,.1);overflow:hidden}
     .container{display:flex;flex-direction:column;gap:32px;height:100%}
@@ -45,41 +43,23 @@
     .main-content{display:grid;grid-template-columns:1fr 1fr;gap:32px}
     @media (max-width: 900px){.main-content{grid-template-columns:1fr}}
 
-    .news-section{background:rgba(0,50,150,.1);border:2px solid #0099ff;border-radius:15px;padding:20px;box-shadow:0 0 30px rgba(0,150,255,.3), inset 0 0 20px rgba(0,100,255,.1);position:relative}
-    .news-section::before{content:"";position:absolute;inset:-2px;border-radius:17px;background:linear-gradient(45deg,#0066ff,#00ffff,#0099ff,#0066ff);filter:brightness(.8);z-index:-1;animation:borderScan 4s linear infinite}
-    @keyframes borderScan{0%{filter:hue-rotate(0) brightness(.85)}50%{filter:hue-rotate(30deg) brightness(1.2)}100%{filter:hue-rotate(0) brightness(.85)}}
+    .news-section{background:rgba(0,50,150,.1);border:2px solid #0099ff;border-radius:15px;padding:20px;box-shadow:0 0 30px rgba(0,150,255,.3), inset 0 0 20px rgba(0,100,255,.1)}
     .section-title{font-size:1.25rem;text-transform:uppercase;margin-bottom:14px;text-shadow:0 0 15px var(--c-cyan);display:flex;align-items:center;gap:10px;color:var(--c-cyan-2)}
-
-    .news-input{width:100%;background:rgba(0,20,60,.85);border:1px solid #0099ff;color:var(--c-cyan);padding:10px;font-family:inherit;font-size:14px;border-radius:8px;margin-bottom:10px;resize:vertical;min-height:80px;box-shadow:inset 0 0 10px rgba(0,100,255,.2)}
-    .news-input::placeholder{color:rgba(0,200,255,.6)}
-    .news-input:focus{outline:none;border-color:var(--c-cyan);box-shadow:inset 0 0 10px rgba(0,100,255,.3),0 0 10px rgba(0,255,255,.5)}
-
-    .btn{background:linear-gradient(45deg,#0066ff,#0099ff);border:1px solid var(--c-cyan);color:#fff;padding:12px 18px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;border-radius:8px;transition:transform .2s ease, box-shadow .2s ease, background .2s ease;text-shadow:0 0 5px #00ccff}
-    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,255,.5);background:linear-gradient(45deg,#0099ff,#00ccff)}
-    .btn:focus-visible{outline:2px solid var(--c-cyan);outline-offset:2px}
-
-    .news-feed{margin-top:16px;max-height:320px;overflow:auto;scrollbar-width:thin;scrollbar-color:#0099ff rgba(0,50,100,.3)}
-    .news-feed::-webkit-scrollbar{width:8px}.news-feed::-webkit-scrollbar-track{background:rgba(0,50,100,.3)}.news-feed::-webkit-scrollbar-thumb{background:#0099ff;border-radius:10px;box-shadow:0 0 10px var(--c-cyan)}.news-feed::-webkit-scrollbar-thumb:hover{background:#00ccff}
-
-    .news-item{background:rgba(0,30,80,.6);border-left:3px solid var(--c-cyan-2);padding:12px;margin-bottom:12px;border-radius:0 8px 8px 0;box-shadow:inset 0 0 10px rgba(0,100,255,.12);color:#a8e0ff;animation:slideIn .45s ease}
-    @keyframes slideIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
-    .news-timestamp{font-size:.78rem;opacity:.9;margin-bottom:4px;color:#66ccff}
+    .news-input{width:100%;background:rgba(0,20,60,.85);border:1px solid #0099ff;color:var(--c-cyan);padding:10px;font-family:inherit;font-size:14px;border-radius:8px;margin-bottom:10px;resize:vertical;min-height:80px}
+    .btn{background:linear-gradient(45deg,#0066ff,#0099ff);border:1px solid var(--c-cyan);color:#fff;padding:12px 18px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;border-radius:8px}
+    .news-feed{margin-top:16px;max-height:320px;overflow:auto}
+    .news-item{background:rgba(0,30,80,.6);border-left:3px solid var(--c-cyan-2);padding:12px;margin-bottom:12px;border-radius:0 8px 8px 0;color:#a8e0ff}
 
     .links-section{display:grid;gap:20px;align-content:start}
-    .link-card{display:block;background:rgba(0,40,120,.22);border:2px solid #0080ff;border-radius:12px;padding:20px;color:#ccddff;text-decoration:none;position:relative;overflow:hidden;box-shadow:0 0 20px rgba(0,120,255,.3), inset 0 0 20px rgba(0,80,160,.1);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
-    .link-card::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(0,255,255,.12),transparent);transition:left .6s ease}
-    .link-card:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 10px 40px rgba(0,200,255,.5), inset 0 0 30px rgba(0,150,255,.2);border-color:var(--c-cyan);color:#fff}
-    .link-card:hover::before{left:100%}
-    .link-title{font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--c-cyan-2)}
+    .link-card{display:block;background:rgba(0,40,120,.22);border:2px solid #0080ff;border-radius:12px;padding:20px;color:#ccddff;text-decoration:none;position:relative;overflow:hidden;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+    .link-card:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 10px 40px rgba(0,200,255,.5);border-color:var(--c-cyan);color:#fff}
+    .link-title{font-size:1.1rem;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--c-cyan-2)}
     .link-description{opacity:.92;line-height:1.5;color:#9fd2ff}
     .icon{width:28px;height:28px;display:grid;place-items:center;font-size:18px;text-shadow:0 0 10px var(--c-cyan)}
 
-    .status-bar{background:rgba(0,30,100,.82);border:1px solid #0099ff;padding:14px;border-radius:10px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;color:#99ccff;box-shadow:0 0 20px rgba(0,150,255,.3), inset 0 0 20px rgba(0,100,255,.1)}
+    .status-bar{background:rgba(0,30,100,.82);border:1px solid #0099ff;padding:14px;border-radius:10px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;color:#99ccff}
     .status-item{display:flex;align-items:center;gap:8px}
-    .status-light{width:10px;height:10px;border-radius:50%;background:var(--c-cyan);box-shadow:0 0 15px var(--c-cyan), 0 0 30px #0099ff;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{box-shadow:0 0 15px var(--c-cyan),0 0 30px #0099ff;background:var(--c-cyan)}50%{box-shadow:0 0 25px var(--c-cyan),0 0 50px #0099ff;background:#66ffff}}
-
-    @media (max-width:768px){.status-bar{flex-direction:column;align-items:stretch}}
+    .status-light{width:10px;height:10px;border-radius:50%;background:var(--c-cyan);box-shadow:0 0 15px var(--c-cyan), 0 0 30px #0099ff}
   </style>
 </head>
 <body>
@@ -98,32 +78,29 @@
       <!-- Main -->
       <main class="main-content" role="main">
         <!-- News -->
-        <section class="news-section" aria-labelledby="newsTitle">
-          <h2 class="section-title" id="newsTitle"><span class="icon" aria-hidden="true">📡</span> Imperiale Nachrichten</h2>
-          <label for="newsInput" class="visually-hidden">Neue imperiale Direktive</label>
-          <textarea id="newsInput" class="news-input" placeholder="Neue imperiale Direktive eingeben…" aria-label="Nachricht eingeben"></textarea>
-          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-            <button id="postBtn" class="btn" type="button">Nachricht übertragen</button>
-            <button id="clearBtn" class="btn" type="button" title="Feed leeren">Feed leeren</button>
-          </div>
-          <div class="news-feed" id="newsFeed" aria-live="polite" aria-relevant="additions text"></div>
+        <section class="news-section">
+          <h2 class="section-title"><span class="icon" aria-hidden="true">📡</span> Imperiale Nachrichten</h2>
+          <textarea id="newsInput" class="news-input" placeholder="Neue imperiale Direktive eingeben…"></textarea>
+          <button id="postBtn" class="btn" type="button">Nachricht übertragen</button>
+          <div class="news-feed" id="newsFeed"></div>
         </section>
 
         <!-- Links -->
-        <nav class="links-section" aria-label="Systemzugriffe">
-          <a href="#" class="link-card" data-action="finance">
+        <nav class="links-section">
+          <a href="https://eastgermancrusader.github.io/IMPERIALES-FINANZ-SYSTEM-Verwaltung/" 
+             class="link-card" target="_blank" rel="noopener noreferrer">
             <div class="link-title"><span class="icon" aria-hidden="true">💳</span> Imperiales Finanzsystem</div>
             <p class="link-description">Budgetierung, Ressourcenverwaltung, Handelsrouten. Überwachung sämtlicher Transaktionen.</p>
           </a>
-          <a href="#" class="link-card" data-action="executive">
+          <a href="#" class="link-card">
             <div class="link-title"><span class="icon" aria-hidden="true">⚖️</span> Imperiales Exekutivsystem</div>
             <p class="link-description">Erlasse, Gesetze, Direktiven. Koordination imperialer Behörden.</p>
           </a>
-          <a href="#" class="link-card" data-action="military">
+          <a href="#" class="link-card">
             <div class="link-title"><span class="icon" aria-hidden="true">🚀</span> Militärkommando</div>
             <p class="link-description">Strategie, Flottenmanagement und Operationskoordination.</p>
           </a>
-          <a href="#" class="link-card" data-action="intelligence">
+          <a href="#" class="link-card">
             <div class="link-title"><span class="icon" aria-hidden="true">🕵️</span> Imperialer Geheimdienst</div>
             <p class="link-description">Spionageabwehr, Aufklärung, Sicherung der Ordnung.</p>
           </a>
@@ -131,108 +108,42 @@
       </main>
 
       <!-- Status -->
-      <section class="status-bar" aria-label="Systemstatus">
-        <div class="status-item"><span class="status-light" aria-hidden="true"></span><span>Holonet Online</span></div>
+      <section class="status-bar">
+        <div class="status-item"><span class="status-light"></span><span>Holonet Online</span></div>
         <div class="status-item"><span>Galaxisweite Verbindung: Aktiv</span></div>
         <div class="status-item"><span>Sicherheitslevel: Maximum</span></div>
-        <div class="status-item"><span class="status-light" aria-hidden="true"></span><span>Imperiale Autorisation: Bestätigt</span></div>
+        <div class="status-item"><span class="status-light"></span><span>Imperiale Autorisation: Bestätigt</span></div>
       </section>
     </div>
   </div>
 
   <script>
-    // ===== Utilities =====
-    const $ = (sel) => document.querySelector(sel);
-    const feedEl = $('#newsFeed');
-    const inputEl = $('#newsInput');
-    const postBtn = $('#postBtn');
-    const clearBtn = $('#clearBtn');
+    const feedEl = document.getElementById('newsFeed');
+    const inputEl = document.getElementById('newsInput');
+    const postBtn = document.getElementById('postBtn');
 
-    // Sternzeit (einfaches Schema: YYYY.DDD.hh:mm)
     function sternzeit(d=new Date()){
       const year = d.getFullYear();
       const start = new Date(Date.UTC(year,0,1));
-      const day = Math.floor((d - start) / 86400000) + 1; // 1..365/366
+      const day = Math.floor((d - start) / 86400000) + 1;
       const hh = String(d.getHours()).padStart(2,'0');
       const mm = String(d.getMinutes()).padStart(2,'0');
       return `${year}.${String(day).padStart(3,'0')}.${hh}:${mm}`;
     }
 
-    // Persistenz
-    const LS_KEY = 'imperiales_holonet_feed_v1';
-    function saveFeed(){ localStorage.setItem(LS_KEY, feedEl.innerHTML); }
-    function loadFeed(){ feedEl.innerHTML = localStorage.getItem(LS_KEY) || sampleNews(); }
-
-    function sampleNews(){
-      const n = [
-        {t: 'Imperator verkündet neue Sicherheitsmaßnahmen für alle Sektoren. Erhöhte Patrouillen in den Randgebieten.'},
-        {t: 'Fertigstellung des neuen Todessterns bestätigt. Systemlords sollen ihre Loyalität bekräftigen.'}
-      ];
-      return n.map(x=>`<article class="news-item"><div class="news-timestamp">Sternzeit: ${sternzeit()}</div><div>${x.t}</div></article>`).join('');
-    }
-
     function addNews(text){
       const art = document.createElement('article');
       art.className = 'news-item';
-      art.innerHTML = `<div class="news-timestamp">Sternzeit: ${sternzeit()}</div><div></div>`;
-      art.querySelector('div:nth-child(2)').textContent = text;
+      art.innerHTML = `<div class="news-timestamp">Sternzeit: ${sternzeit()}</div><div>${text}</div>`;
       feedEl.prepend(art);
-      saveFeed();
     }
-
-    // ===== Audio (init on user gesture) =====
-    let audioCtx = null, typingCooldown = false;
-    function ensureAudio(){ if(!audioCtx && (window.AudioContext||window.webkitAudioContext)){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } }
-
-    function beep(freq=800, dur=0.1, type='square', gainVal=0.08){ if(!audioCtx) return; const o=audioCtx.createOscillator(); const g=audioCtx.createGain(); o.type=type; o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(gainVal, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + dur); o.start(); o.stop(audioCtx.currentTime + dur); }
-
-    function diskette(){ if(!audioCtx) return; const seekO=audioCtx.createOscillator(), seekG=audioCtx.createGain(), seekF=audioCtx.createBiquadFilter(); seekO.type='square'; seekO.frequency.setValueAtTime(150, audioCtx.currentTime); seekO.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.1); seekF.type='highpass'; seekF.frequency.value=200; seekO.connect(seekF); seekF.connect(seekG); seekG.connect(audioCtx.destination); seekG.gain.setValueAtTime(0.12, audioCtx.currentTime); seekG.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15); seekO.start(); seekO.stop(audioCtx.currentTime + 0.15); setTimeout(()=>{ const rO=audioCtx.createOscillator(), rG=audioCtx.createGain(), rF=audioCtx.createBiquadFilter(); rO.type='sawtooth'; rO.frequency.setValueAtTime(400, audioCtx.currentTime); rO.frequency.linearRampToValueAtTime(420, audioCtx.currentTime + 0.6); rF.type='lowpass'; rF.frequency.value=800; rF.Q.value=2; rO.connect(rF); rF.connect(rG); rG.connect(audioCtx.destination); rG.gain.setValueAtTime(0.06, audioCtx.currentTime); rG.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8); rO.start(); rO.stop(audioCtx.currentTime + 0.8); },150); }
-
-    function modem(){ if(!audioCtx) return; const o1=audioCtx.createOscillator(), o2=audioCtx.createOscillator(), g=audioCtx.createGain(), f=audioCtx.createBiquadFilter(); o1.type='sine'; o2.type='sine'; o1.frequency.setValueAtTime(1200, audioCtx.currentTime); o2.frequency.setValueAtTime(2400, audioCtx.currentTime); f.type='bandpass'; f.frequency.value=1800; f.Q.value=5; o1.connect(f); o2.connect(f); f.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(0.04, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6); o1.start(); o2.start(); o1.stop(audioCtx.currentTime + 0.6); o2.stop(audioCtx.currentTime + 0.6); }
-
-    function typing(){ if(!audioCtx || typingCooldown) return; typingCooldown = true; setTimeout(()=>typingCooldown=false, 35); const o=audioCtx.createOscillator(), g=audioCtx.createGain(), f=audioCtx.createBiquadFilter(); o.type='square'; o.frequency.value=200 + Math.random()*100; f.type='highpass'; f.frequency.value=150; o.connect(f); f.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(0.06, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05); o.start(); o.stop(audioCtx.currentTime + 0.05); }
-
-    function startup(){ if(!audioCtx) return; setTimeout(()=>beep(820,0.1),100); setTimeout(()=>beep(820,0.1),220); setTimeout(()=>diskette(),520); setTimeout(()=>modem(),1400); }
-
-    // ===== Events =====
-    document.addEventListener('pointerdown', ()=>{ ensureAudio(); startup(); }, { once:true });
 
     postBtn.addEventListener('click', ()=>{
       const val = inputEl.value.trim();
       if(!val){ alert('Nachricht darf nicht leer sein.'); return; }
       addNews(val);
       inputEl.value='';
-      if(audioCtx){ diskette(); }
     });
-
-    clearBtn.addEventListener('click', ()=>{
-      if(confirm('Feed wirklich leeren?')){ feedEl.innerHTML=''; saveFeed(); }
-    });
-
-    inputEl.addEventListener('input', ()=>{ typing(); });
-
-    // Link actions
-    document.querySelectorAll('.link-card').forEach(a=>{
-      a.addEventListener('mouseenter', ()=>beep(900,0.08));
-      a.addEventListener('click', (e)=>{
-        e.preventDefault(); ensureAudio(); diskette();
-        const act = a.getAttribute('data-action');
-        switch(act){
-          case 'finance': alert('Zugriff wird initialisiert...\nWeiterleitung: Imperial-Credits-Management\nAutorisation erforderlich.'); break;
-          case 'executive': alert('Verbindung zum Exekutivsystem...\nDirektiven werden geladen.'); break;
-          case 'military': alert('Sicherer Kanal zum Militärkommando...\nFlottenstatus wird abgerufen.'); break;
-          case 'intelligence': alert('Zugriff verweigert.\nKlassifizierungsstufe unzureichend.\nKontaktieren Sie Ihren ISB-Offizier.'); break;
-        }
-      });
-    });
-
-    // 
-    loadFeed();
-    document.addEventListener('visibilitychange', ()=>{ if(document.hidden) saveFeed(); });
-    window.addEventListener('beforeunload', saveFeed);
-
-    // Systeminfo tick
-    setInterval(()=>{ const dt = new Date(); $('#sysInfo').textContent = `[SYSTEM OK] – [STERNZEIT ${sternzeit(dt)}] – [HOLO-NETZ STABIL]`; }, 60000);
   </script>
 </body>
 </html>
