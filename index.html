@@ -24,18 +24,67 @@
       min-height:100svh;
       overflow-x:hidden;
     }
-    /* CRT Overlay */
-    .crt-container{position:fixed;inset:0;pointer-events:none;z-index:1000;background:radial-gradient(ellipse at center, rgba(0,50,100,.1) 0%, rgba(0,0,0,.8) 70%, rgba(0,0,0,1) 100%);border-radius:50px;box-shadow:inset 0 0 100px rgba(0,100,255,.1), inset 0 0 200px rgba(0,50,150,.05), 0 0 50px rgba(0,100,255,.3)}
-    .crt-container::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,255,.03) 2px,rgba(0,255,255,.03) 4px);animation:scanlines .1s linear infinite}
-    .crt-container::after{content:"";position:absolute;inset:0;background:rgba(0,255,255,.02);animation:flicker .15s infinite linear alternate}
-    @keyframes scanlines{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
-    @keyframes flicker{0%,98%{opacity:1}99%{opacity:.98}100%{opacity:.96}}
 
-    .screen{position:relative;width:min(1200px,95%);min-height:calc(100svh - 4vh);margin:2vh auto;padding:clamp(16px,3vw,40px);background:radial-gradient(ellipse at center, rgba(0,30,60,.3) 0%, rgba(0,10,30,.6) 100%);border-radius:var(--radius-outer);border:3px solid rgba(0,100,255,.3);box-shadow:0 0 30px rgba(0,150,255,.4), inset 0 0 50px rgba(0,100,255,.1);overflow:hidden}
+    /* ===== Work-in-Progress Banner ===== */
+    .wip-banner{
+      position:relative;
+      width:100%;
+      height:42px;
+      overflow:hidden;
+      background:rgba(0,0,0,.55); /* Schwarzer Alphakanal */
+      border-radius:10px;
+      margin:10px 0 18px 0;
+      border:1px solid rgba(255,255,0,.25);
+    }
+    .wip-banner::before{
+      content:"";
+      position:absolute;inset:0;
+      width:200%;
+      background:repeating-linear-gradient(45deg, transparent 0 22px, #ffd000 22px 44px);
+      opacity:.9;
+      animation:wipSlide 14s linear infinite; /* langsamer */
+    }
+    .wip-text{
+      position:absolute;inset:0;
+      width:200%;
+      display:flex;align-items:center;justify-content:center;
+      gap:80px; /* Abstand zwischen Wiederholung */
+      color:#fff;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      text-shadow:0 0 2px #000, 0 0 6px rgba(0,0,0,.6);
+      animation:wipSlide 14s linear infinite; /* synchron zum Hintergrund */
+      white-space:nowrap;
+    }
+    @keyframes wipSlide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    .screen{
+      position:relative;
+      width:min(1200px,95%);
+      min-height:calc(100svh - 4vh);
+      margin:2vh auto;
+      padding:clamp(16px,3vw,40px);
+      background:radial-gradient(ellipse at center, rgba(0,30,60,.3) 0%, rgba(0,10,30,.6) 100%);
+      border-radius:var(--radius-outer);
+      border:3px solid rgba(0,100,255,.3);
+      box-shadow:0 0 30px rgba(0,150,255,.4), inset 0 0 50px rgba(0,100,255,.1);
+      overflow:hidden;
+    }
     .container{display:flex;flex-direction:column;gap:32px;height:100%}
     .header{text-align:center}
-    .imperial-logo{width:96px;height:96px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;font-size:48px;color:#fff;background:radial-gradient(circle,var(--c-blue-2),var(--c-blue-3));text-shadow:0 0 20px var(--c-cyan);box-shadow:0 0 30px var(--c-blue-2), inset 0 0 30px rgba(0,150,255,.3);animation:logoGlow 3s infinite ease-in-out}
-    @keyframes logoGlow{0%,100%{box-shadow:0 0 30px var(--c-blue-2), inset 0 0 30px rgba(0,150,255,.3)}50%{box-shadow:0 0 50px var(--c-cyan), inset 0 0 50px rgba(0,255,255,.5)}}
+    .imperial-logo{
+      width:96px;height:96px;margin:0 auto 16px;border-radius:50%;
+      display:grid;place-items:center;font-size:48px;color:#fff;
+      background:radial-gradient(circle,var(--c-blue-2),var(--c-blue-3));
+      text-shadow:0 0 20px var(--c-cyan);
+      box-shadow:0 0 30px var(--c-blue-2), inset 0 0 30px rgba(0,150,255,.3);
+      animation:logoGlow 3s infinite ease-in-out
+    }
+    @keyframes logoGlow{
+      0%,100%{box-shadow:0 0 30px var(--c-blue-2), inset 0 0 30px rgba(0,150,255,.3)}
+      50%{box-shadow:0 0 50px var(--c-cyan), inset 0 0 50px rgba(0,255,255,.5)}
+    }
     h1{font-size:clamp(24px,3.2vw,40px);letter-spacing:.08em;text-transform:uppercase;color:var(--c-cyan-2);text-shadow:0 0 20px var(--c-cyan),0 0 40px var(--c-blue-2);margin-bottom:6px}
     .subtitle{font-size:.95rem;letter-spacing:.15em;text-transform:uppercase;color:#66ccff;text-shadow:0 0 10px var(--c-blue-1)}
     .system-info{font-size:.8rem;margin-top:8px;color:#0099ff;text-shadow:0 0 5px #0066ff;opacity:.85}
@@ -63,9 +112,16 @@
   </style>
 </head>
 <body>
-  <div class="crt-container" aria-hidden="true"></div>
-
+  <!-- Bildschirm / Rahmen -->
   <div class="screen">
+    <!-- WIP-Banner -->
+    <div class="wip-banner" aria-live="polite">
+      <div class="wip-text">
+        <span>⚠️ Work in Progress – Imperiales Holonet wird noch entwickelt ⚠️</span>
+        <span>⚠️ Work in Progress – Imperiales Holonet wird noch entwickelt ⚠️</span>
+      </div>
+    </div>
+
     <div class="container">
       <!-- Header -->
       <header class="header" role="banner">
@@ -86,9 +142,8 @@
         </section>
 
         <!-- Links -->
-        <nav class="links-section">
-            <a href="https://eastgermancrusader.github.io/IMPERIALES-FINANZ-SYSTEM-Verwaltung/" 
-            class="link-card">
+        <nav class="links-section" aria-label="Systemzugriffe">
+          <a href="https://eastgermancrusader.github.io/IMPERIALES-FINANZ-SYSTEM-Verwaltung/" class="link-card">
             <div class="link-title"><span class="icon" aria-hidden="true">💳</span> Imperiales Finanzsystem</div>
             <p class="link-description">Budgetierung, Ressourcenverwaltung, Handelsrouten. Überwachung sämtlicher Transaktionen.</p>
           </a>
@@ -109,7 +164,7 @@
       </main>
 
       <!-- Status -->
-      <section class="status-bar">
+      <section class="status-bar" aria-label="Systemstatus">
         <div class="status-item"><span class="status-light"></span><span>Holonet Online</span></div>
         <div class="status-item"><span>Galaxisweite Verbindung: Aktiv</span></div>
         <div class="status-item"><span>Sicherheitslevel: Maximum</span></div>
